@@ -27,7 +27,7 @@ try {
     }
 
     // 3. Fallback APP_KEY if not configured in Vercel environment variables
-    if (!getenv('APP_KEY') && !isset($_ENV['APP_KEY']) && !isset($_SERVER['APP_KEY'])) {
+    if (empty(getenv('APP_KEY')) && empty($_ENV['APP_KEY']) && empty($_SERVER['APP_KEY'])) {
         $fallbackKey = 'base64:EYHUtc6bUY7IpMNribglu6xmH83DgtRvj8HnfJjBgDw=';
         putenv("APP_KEY={$fallbackKey}");
         $_ENV['APP_KEY'] = $fallbackKey;
@@ -50,16 +50,18 @@ try {
         'APP_ROUTES_CACHE' => '/tmp/routes.php',
         'APP_EVENTS_CACHE' => '/tmp/events.php',
         'DB_DATABASE' => '/tmp/database.sqlite',
+        'APP_MAINTENANCE_DRIVER' => 'file',
+        'QUEUE_CONNECTION' => 'sync',
     ];
 
     foreach ($envOverrides as $key => $val) {
-        if (!getenv($key)) {
+        if (!getenv($key) || getenv($key) === '') {
             putenv("{$key}={$val}");
         }
-        if (!isset($_ENV[$key])) {
+        if (!isset($_ENV[$key]) || $_ENV[$key] === '') {
             $_ENV[$key] = $val;
         }
-        if (!isset($_SERVER[$key])) {
+        if (!isset($_SERVER[$key]) || $_SERVER[$key] === '') {
             $_SERVER[$key] = $val;
         }
     }
