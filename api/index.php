@@ -1,61 +1,78 @@
 <?php
 
-// 1. Prepare temporary writable directories for Vercel Serverless environment
-$tmpDirs = [
-    '/tmp/storage/framework/views',
-    '/tmp/storage/framework/cache',
-    '/tmp/storage/framework/sessions',
-    '/tmp/storage/logs',
-    '/tmp/bootstrap/cache',
-];
+// Display errors in case of unexpected startup crash
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
-foreach ($tmpDirs as $dir) {
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0755, true);
+try {
+    // 1. Prepare temporary writable directories for Vercel Serverless environment
+    $tmpDirs = [
+        '/tmp/storage/framework/views',
+        '/tmp/storage/framework/cache',
+        '/tmp/storage/framework/sessions',
+        '/tmp/storage/logs',
+        '/tmp/bootstrap/cache',
+    ];
+
+    foreach ($tmpDirs as $dir) {
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
     }
+
+    // 2. Ensure an empty sqlite file exists if needed
+    if (!file_exists('/tmp/database.sqlite')) {
+        @touch('/tmp/database.sqlite');
+    }
+
+    // 3. Fallback APP_KEY if not configured in Vercel environment variables
+    if (!getenv('APP_KEY') && !isset($_ENV['APP_KEY']) && !isset($_SERVER['APP_KEY'])) {
+        $fallbackKey = 'base64:EYHUtc6bUY7IpMNribglu6xmH83DgtRvj8HnfJjBgDw=';
+        putenv("APP_KEY={$fallbackKey}");
+        $_ENV['APP_KEY'] = $fallbackKey;
+        $_SERVER['APP_KEY'] = $fallbackKey;
+    }
+
+    // 4. Set environment overrides for serverless read-only filesystem
+    $envOverrides = [
+        'APP_ENV' => 'production',
+        'APP_DEBUG' => 'true',
+        'APP_STORAGE' => '/tmp/storage',
+        'VIEW_COMPILED_PATH' => '/tmp/storage/framework/views',
+        'SESSION_DRIVER' => 'cookie',
+        'CACHE_STORE' => 'array',
+        'CACHE_DRIVER' => 'array',
+        'LOG_CHANNEL' => 'stderr',
+        'APP_PACKAGES_CACHE' => '/tmp/packages.php',
+        'APP_SERVICES_CACHE' => '/tmp/services.php',
+        'APP_CONFIG_CACHE' => '/tmp/config.php',
+        'APP_ROUTES_CACHE' => '/tmp/routes.php',
+        'APP_EVENTS_CACHE' => '/tmp/events.php',
+        'DB_DATABASE' => '/tmp/database.sqlite',
+    ];
+
+    foreach ($envOverrides as $key => $val) {
+        if (!getenv($key)) {
+            putenv("{$key}={$val}");
+        }
+        if (!isset($_ENV[$key])) {
+            $_ENV[$key] = $val;
+        }
+        if (!isset($_SERVER[$key])) {
+            $_SERVER[$key] = $val;
+        }
+    }
+
+    // 5. Delegate execution to public/index.php
+    require __DIR__ . '/../public/index.php';
+} catch (\Throwable $e) {
+    http_response_code(500);
+    echo '<div style="font-family: monospace; padding: 2rem; background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; border-radius: 8px; margin: 2rem;">';
+    echo '<h2 style="margin-top: 0;">Vercel Serverless Function Error</h2>';
+    echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>';
+    echo '<p><strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . '</p>';
+    echo '<pre style="background: #ffffff; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 13px;">' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
+    echo '</div>';
 }
-
-// 2. Pre-seed cache files from build if they exist
-foreach (['packages.php', 'services.php'] as $file) {
-    $src = __DIR__ . '/../bootstrap/cache/' . $file;
-    $dst = '/tmp/bootstrap/cache/' . $file;
-    if (file_exists($src) && !file_exists($dst)) {
-        @copy($src, $dst);
-    }
-}
-
-// 3. Ensure a temporary sqlite file exists as fallback
-if (!file_exists('/tmp/database.sqlite')) {
-    @touch('/tmp/database.sqlite');
-}
-
-// 4. Set environment overrides for serverless read-only filesystem
-$envOverrides = [
-    'APP_STORAGE' => '/tmp/storage',
-    'VIEW_COMPILED_PATH' => '/tmp/storage/framework/views',
-    'SESSION_DRIVER' => 'cookie',
-    'CACHE_STORE' => 'array',
-    'LOG_CHANNEL' => 'stderr',
-    'APP_PACKAGES_CACHE' => '/tmp/bootstrap/cache/packages.php',
-    'APP_SERVICES_CACHE' => '/tmp/bootstrap/cache/services.php',
-    'APP_CONFIG_CACHE' => '/tmp/bootstrap/cache/config.php',
-    'APP_ROUTES_CACHE' => '/tmp/bootstrap/cache/routes-v7.php',
-    'APP_EVENTS_CACHE' => '/tmp/bootstrap/cache/events.php',
-    'DB_DATABASE' => '/tmp/database.sqlite',
-];
-
-foreach ($envOverrides as $key => $val) {
-    if (!getenv($key)) {
-        putenv("{$key}={$val}");
-    }
-    if (!isset($_ENV[$key])) {
-        $_ENV[$key] = $val;
-    }
-    if (!isset($_SERVER[$key])) {
-        $_SERVER[$key] = $val;
-    }
-}
-
-// 5. Delegate execution to public/index.php
-require __DIR__ . '/../public/index.php';
 
