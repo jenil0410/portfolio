@@ -2,37 +2,35 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.3",
       "maxDuration": 30
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/build/(.*)",
-      "destination": "/public/build/$1"
+      "src": "/build/(.*)",
+      "dest": "/public/build/$1"
     },
     {
-      "source": "/favicon.ico",
-      "destination": "/public/favicon.ico"
+      "src": "/(favicon\\.ico|robots\\.txt)",
+      "dest": "/public/$1"
     },
     {
-      "source": "/robots.txt",
-      "destination": "/public/robots.txt"
+      "src": "/reference/(.*)",
+      "dest": "/public/reference/$1"
     },
     {
-      "source": "/reference/(.*)",
-      "destination": "/public/reference/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/api/index.php"
+      "src": "/(.*)",
+      "dest": "/api/index.php"
     }
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
+    "APP_DEBUG": "false",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
