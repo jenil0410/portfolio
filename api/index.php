@@ -75,4 +75,3 @@ try {
     echo '<pre style="background: #ffffff; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 13px;">' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
     echo '</div>';
 }
-
