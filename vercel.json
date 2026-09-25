@@ -8,26 +8,26 @@
       "maxDuration": 30
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "source": "/build/(.*)",
+      "destination": "/public/build/$1"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/public/favicon.ico"
+      "source": "/favicon.ico",
+      "destination": "/public/favicon.ico"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/public/robots.txt"
+      "source": "/robots.txt",
+      "destination": "/public/robots.txt"
     },
     {
-      "src": "/reference/(.*)",
-      "dest": "/public/reference/$1"
+      "source": "/reference/(.*)",
+      "destination": "/public/reference/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/api/index.php"
+      "source": "/(.*)",
+      "destination": "/api/index.php"
     }
   ],
   "env": {
@@ -47,3 +47,4 @@
     "QUEUE_CONNECTION": "sync"
   }
 }
+
