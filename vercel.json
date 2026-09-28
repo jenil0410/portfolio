@@ -13,19 +13,16 @@
   },
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "dest": "/build/$1"
     },
     {
       "src": "/(favicon\\.ico|robots\\.txt)",
-      "dest": "/public/$1"
+      "dest": "/$1"
     },
     {
       "src": "/reference/(.*)",
-      "dest": "/public/reference/$1"
+      "dest": "/reference/$1"
     },
     {
       "src": "/(.*)",
@@ -35,12 +32,16 @@
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
+    "APP_KEY": "base64:EYHUtc6bUY7IpMNribglu6xmH83DgtRvj8HnfJjBgDw=",
+    "APP_STORAGE": "/tmp/storage",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
     "APP_ROUTES_CACHE": "/tmp/routes.php",
     "APP_SERVICES_CACHE": "/tmp/services.php",
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
+    "DB_CONNECTION": "sqlite",
+    "DB_DATABASE": "/tmp/database.sqlite",
     "CACHE_STORE": "array",
     "CACHE_DRIVER": "array",
     "LOG_CHANNEL": "stderr",
@@ -49,4 +50,3 @@
     "QUEUE_CONNECTION": "sync"
   }
 }
-
