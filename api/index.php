@@ -27,19 +27,21 @@ if (empty(getenv('APP_KEY'))) {
     putenv('APP_KEY=base64:EYHUtc6bUY7IpMNribglu6xmH83DgtRvj8HnfJjBgDw=');
 }
 
-// Set environment overrides for serverless read-only filesystem
+// Set cache paths for serverless /tmp filesystem
+putenv("APP_CONFIG_CACHE=/tmp/config.php");
+putenv("APP_EVENTS_CACHE=/tmp/events.php");
+putenv("APP_PACKAGES_CACHE=/tmp/packages.php");
+putenv("APP_ROUTES_CACHE=/tmp/routes.php");
+putenv("APP_SERVICES_CACHE=/tmp/services.php");
+putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
+putenv("APP_STORAGE={$storagePath}");
+
+// Set remaining overrides only if not already defined
 $envOverrides = [
-    'APP_STORAGE'            => $storagePath,
-    'VIEW_COMPILED_PATH'     => $storagePath . '/framework/views',
     'SESSION_DRIVER'         => 'cookie',
     'CACHE_STORE'            => 'array',
     'CACHE_DRIVER'           => 'array',
     'LOG_CHANNEL'            => 'stderr',
-    'APP_PACKAGES_CACHE'     => '/tmp/packages.php',
-    'APP_SERVICES_CACHE'     => '/tmp/services.php',
-    'APP_CONFIG_CACHE'       => '/tmp/config.php',
-    'APP_ROUTES_CACHE'       => '/tmp/routes.php',
-    'APP_EVENTS_CACHE'       => '/tmp/events.php',
     'DB_DATABASE'            => '/tmp/database.sqlite',
     'APP_MAINTENANCE_DRIVER' => 'file',
     'QUEUE_CONNECTION'       => 'sync',

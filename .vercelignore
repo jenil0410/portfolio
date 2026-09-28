@@ -1,8 +1,9 @@
+/vendor
+/node_modules
 .env
 .git
 .github
-tests/
-node_modules/
+/tests
 storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
