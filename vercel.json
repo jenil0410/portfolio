@@ -33,6 +33,7 @@
     "APP_ENV": "production",
     "APP_DEBUG": "false",
     "APP_KEY": "base64:EYHUtc6bUY7IpMNribglu6xmH83DgtRvj8HnfJjBgDw=",
+    "APP_URL": "https://jenil-portfolio.vercel.app",
     "APP_STORAGE": "/tmp/storage",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
