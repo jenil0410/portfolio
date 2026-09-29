@@ -100,4 +100,25 @@ class PortfolioController extends Controller
             'contact' => PortfolioData::getContact(),
         ]);
     }
+
+    /**
+     * Serve or download the résumé.
+     */
+    public function resume(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $path = public_path('resume.pdf');
+
+        if (!file_exists($path)) {
+            $path = storage_path('app/public/jenil_resume (2).pdf');
+        }
+
+        if (!file_exists($path)) {
+            abort(404, 'Résumé file not found.');
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Jenil_Desai_Resume.pdf"',
+        ]);
+    }
 }

@@ -17,7 +17,7 @@
       "dest": "/build/$1"
     },
     {
-      "src": "/(favicon\\.ico|robots\\.txt)",
+      "src": "/(favicon\\.ico|robots\\.txt|resume\\.pdf)",
       "dest": "/$1"
     },
     {

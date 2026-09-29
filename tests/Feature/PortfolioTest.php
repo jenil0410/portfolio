@@ -82,6 +82,19 @@ class PortfolioTest extends TestCase
         $response->assertSee('Learning by building the whole system.');
         $response->assertSee('Nivaas');
         $response->assertSee('ShilpShastra');
+        $response->assertSee('https://shilp-shastra.vercel.app/');
+    }
+
+    /**
+     * Test ShilpShastra case study contains live product link.
+     */
+    public function test_shilpshastra_case_study_has_live_product_link(): void
+    {
+        $response = $this->get('/work/shilpshastra');
+
+        $response->assertStatus(200);
+        $response->assertSee('https://shilp-shastra.vercel.app/');
+        $response->assertSee('Live product');
     }
 
     /**
@@ -106,5 +119,19 @@ class PortfolioTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Have a problem worth building?');
         $response->assertSee('jenildesai0410@gmail.com');
+        $response->assertSee('https://www.linkedin.com/in/jenil-desai-67609b218/');
+        $response->assertSee('https://github.com/jenil0410');
+        $response->assertSee('View / Download CV');
+    }
+
+    /**
+     * Test résumé download/view endpoint returns PDF response.
+     */
+    public function test_resume_route_returns_pdf_file(): void
+    {
+        $response = $this->get('/resume');
+
+        $response->assertStatus(200);
+        $response->assertHeader('content-type', 'application/pdf');
     }
 }

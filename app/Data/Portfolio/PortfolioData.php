@@ -144,6 +144,7 @@ class PortfolioData
                 'name' => 'ShilpShastra',
                 'category' => 'Independent Product / Marketplace',
                 'summary' => 'An artisan-focused commerce product exploring digital infrastructure for craft businesses.',
+                'url' => 'https://shilp-shastra.vercel.app/',
                 'capabilities' => [
                     'Marketplace architecture',
                     'Product management',
@@ -347,6 +348,9 @@ class PortfolioData
             'email' => 'jenildesai0410@gmail.com',
             'phone' => '+91 8733088369',
             'location' => 'Ahmedabad, Gujarat, India',
+            'linkedin' => 'https://www.linkedin.com/in/jenil-desai-67609b218/',
+            'github' => 'https://github.com/jenil0410',
+            'resume' => '/resume.pdf',
         ];
     }
 }

@@ -1,12 +1,24 @@
 <article class="case-study case-{{ $project['slug'] }}">
     <header>
-        <a href="{{ route('portfolio.work') }}" class="back-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            All work
-        </a>
+        <div class="case-study-nav">
+            <a href="{{ route('portfolio.work') }}" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                All work
+            </a>
+            @if(!empty($project['url']))
+                <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary case-live-link" aria-label="Visit {{ $project['name'] }} live product">
+                    Live product
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            @endif
+        </div>
         <p class="eyebrow">{{ $project['category'] }} / CASE {{ $project['number'] }}</p>
         <h1>{{ $project['name'] }}</h1>
         <p class="lede">{{ $project['summary'] }}</p>
@@ -29,6 +41,18 @@
             <h2>{{ $project['summary'] }}</h2>
             @if(!empty($project['note']))
                 <p>{{ $project['note'] }}</p>
+            @endif
+            @if(!empty($project['url']))
+                <p class="case-url-row">
+                    <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer" class="case-url-link">
+                        <span>Live product: {{ $project['url'] }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </p>
             @endif
         </div>
     </section>
@@ -129,12 +153,24 @@
 
     <footer class="case-footer">
         <p>{{ implode(' · ', $project['technologies']) }}</p>
-        <a href="{{ route('portfolio.contact') }}">
-            Discuss a project
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-        </a>
+        <div class="case-footer-actions">
+            @if(!empty($project['url']))
+                <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer" class="case-live-link-footer" aria-label="Visit {{ $project['name'] }} live product">
+                    Live product
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            @endif
+            <a href="{{ route('portfolio.contact') }}">
+                Discuss a project
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </a>
+        </div>
     </footer>
 </article>

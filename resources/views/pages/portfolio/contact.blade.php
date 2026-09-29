@@ -33,19 +33,31 @@
             <strong>{{ $contact['location'] }}</strong>
         </div>
 
-        <div class="contact-placeholder">
+        <a href="{{ $contact['linkedin'] }}" target="_blank" rel="noopener noreferrer">
             <span>04 / LINKEDIN</span>
-            <strong>URL pending</strong>
-        </div>
+            <strong>linkedin.com/in/jenil-desai-67609b218</strong>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        </a>
 
-        <div class="contact-placeholder">
+        <a href="{{ $contact['github'] }}" target="_blank" rel="noopener noreferrer">
             <span>05 / GITHUB</span>
-            <strong>URL pending</strong>
-        </div>
+            <strong>github.com/jenil0410</strong>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        </a>
 
-        <div class="contact-placeholder">
+        <a href="{{ route('portfolio.resume') }}" target="_blank" rel="noopener noreferrer">
             <span>06 / R&Eacute;SUM&Eacute;</span>
-            <strong>File pending</strong>
-        </div>
+            <strong>View / Download CV (PDF)</strong>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        </a>
     </section>
 </x-layouts.portfolio>

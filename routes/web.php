@@ -16,3 +16,5 @@ Route::get('/experience', [PortfolioController::class, 'experience'])->name('por
 Route::get('/products', [PortfolioController::class, 'products'])->name('portfolio.products');
 Route::get('/about', [PortfolioController::class, 'about'])->name('portfolio.about');
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('portfolio.contact');
+Route::get('/resume', [PortfolioController::class, 'resume'])->name('portfolio.resume');
+

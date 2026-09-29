@@ -158,6 +158,33 @@
                     <polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
             </a>
+            @if(!empty($contact['linkedin']))
+                <a href="{{ $contact['linkedin'] }}" target="_blank" rel="noopener noreferrer">
+                    LinkedIn / jenil-desai-67609b218
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </a>
+            @endif
+            @if(!empty($contact['github']))
+                <a href="{{ $contact['github'] }}" target="_blank" rel="noopener noreferrer">
+                    GitHub / @jenil0410
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </a>
+            @endif
+            @if(!empty($contact['resume']))
+                <a href="{{ route('portfolio.resume') }}" target="_blank" rel="noopener noreferrer">
+                    R&eacute;sum&eacute; / Curriculum Vitae (PDF)
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </a>
+            @endif
             <span>{{ $contact['location'] }}</span>
         </div>
     </section>
